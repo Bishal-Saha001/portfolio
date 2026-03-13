@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Me — Bishal Saha</title>
+    <meta name="description"
+        content="About Bishal Saha — Product Designer, UX/UI specialist, and creative problem solver." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="inner-page.css" />
+    <link rel="stylesheet" href="about-me.css" />
+    <script>
+        const savedTheme = localStorage.getItem('theme') || (localStorage.getItem('darkMode') === 'true' ? 'dark' : 'light');
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        }
+    </script>
+</head>
+
+<body class="inner-page">
+
+    <!-- Top-right utilities -->
+    <div class="top-utils">
+        <div class="theme-toggle-group" id="theme-toggle-group" data-active="light">
+            <div class="theme-toggle-slider" id="theme-toggle-slider"></div>
+            <button class="theme-btn" data-theme="light" aria-label="Light mode">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                Light
+            </button>
+            <button class="theme-btn" data-theme="dark" aria-label="Dark mode">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                Dark
+            </button>
+        </div>
+        <a href="https://www.linkedin.com/in/bishal-saha-product-designer/" target="_blank" rel="noopener"
+            class="util-btn" aria-label="View my LinkedIn" data-tooltip="View my LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+            </svg>
+        </a>
+        <a href="mailto:sahabishal59@gmail.com" class="util-btn" aria-label="Write a mail" data-tooltip="Write a mail">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+            </svg>
+        </a>
+    </div>
+
+    <div class="page-container">
+
+        <header class="about-page-header">
+            <p class="about-page-label">About Me</p>
+        </header>
+
+        <!-- ═══════════ INTRO ═══════════ -->
+        <div class="about-intro">
+            <p>I'm a <em>product designer</em>. I love to apply my skills in design and research to <em>build new or
+                    improve existing interfaces</em> for a better user experience and better customer acquisition and
+                retention. Also, I believe in creating designs that don't make developers question their life choices.
+            </p>
+            <p>When design isn't occupying my thoughts, you'll catch me engrossed in books or writing articles on <em><a
+                        href="https://rufbuk.com" target="_blank" rel="noopener">my website</a></em> Rufbuk.com.</p>
+        </div>
+
+        <!-- ═══════════ EXPERIENCE ═══════════ -->
+        <section class="about-section">
+            <h2 class="about-section-title">Experience</h2>
+            <div class="exp-list">
+                <div class="exp-row">
+                    <span class="exp-icon"><img src="Assets/Web_science_lab.svg" alt="Web Science Lab" /></span>
+                    <span class="exp-name">Web Science Lab - IIIT-B</span>
+                    <hr class="exp-line" />
+                    <span class="exp-role">Design Researcher - UX</span>
+                </div>
+                <div class="exp-row">
+                    <span class="exp-icon"><img src="Assets/The_wedding_comany.svg" alt="The Wedding Company" /></span>
+                    <span class="exp-name">The Wedding Company</span>
+                    <hr class="exp-line" />
+                    <span class="exp-role">Wedding Executive - Front-End Experience</span>
+                </div>
+                <div class="exp-row">
+                    <span class="exp-icon"><img src="Assets/Bridge_ux_design_studios.svg"
+                            alt="Bridge UX Design Studios" /></span>
+                    <span class="exp-name">Bridge UX Design Studios LLP</span>
+                    <hr class="exp-line" />
+                    <span class="exp-role">Product Designer</span>
+                </div>
+                <div class="exp-row">
+                    <span class="exp-icon"><img src="Assets/Manta_care.svg" alt="Mantra Care" /></span>
+                    <span class="exp-name">Mantra Care</span>
+                    <hr class="exp-line" />
+                    <span class="exp-role">WordPress Developer</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════ FREELANCE WORKS ═══════════ -->
+        <section class="about-section">
+            <h2 class="about-section-title">Freelance</h2>
+            <div class="freelance-grid">
+                <div class="freelance-card">
+                    <span class="freelance-icon"><img src="Assets/Sportsbeam.svg" alt="Sportsbeams" /></span>
+                    <span class="freelance-name">Sportsbeams</span>
+                </div>
+                <div class="freelance-card">
+                    <span class="freelance-icon"><img src="Assets/Spectra_beams.svg" alt="Spectrabeams" /></span>
+                    <span class="freelance-name">Spectrabeams</span>
+                </div>
+                <div class="freelance-card">
+                    <span class="freelance-icon"><img src="Assets/Satyam_galleria.svg" alt="Satyam Galleria" /></span>
+                    <span class="freelance-name">Satyam Galleria</span>
+                </div>
+                <div class="freelance-card">
+                    <span class="freelance-icon"><img src="Assets/Asvik_gold_buyers.svg"
+                            alt="Ashvik Gold Company" /></span>
+                    <span class="freelance-name">Ashvik - Gold Company</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════ EDUCATION ═══════════ -->
+        <section class="about-section">
+            <h2 class="about-section-title">Education</h2>
+            <div class="edu-list">
+                <div class="edu-card">
+                    <div class="edu-card-top">
+                        <div class="edu-info">
+                            <span class="edu-name">International Institute of Information Technology, Bangalore</span>
+
+                        </div>
+                        <p class="edu-course">Post Graduation in Digital Product Design and Management</p>
+                    </div>
+                    <span class="edu-logo"><img src="Assets/IIIT-B.svg" alt="IIIT Bangalore" /></span>
+                </div>
+                <div class="edu-card">
+                    <div class="edu-card-top">
+                        <div class="edu-info">
+                            <span class="edu-name">Lovely Professional University, Punjab</span>
+
+                        </div>
+                        <p class="edu-course">Bachelor of Computer Applications - Honours</p>
+                    </div>
+                    <span class="edu-logo"><img src="Assets/LPU.svg" alt="LPU" /></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════ LANGUAGES ═══════════ -->
+        <section class="about-section">
+            <h2 class="about-section-title">Languages</h2>
+            <div class="lang-list">
+                <div class="lang-row">
+                    <span class="lang-name">English</span>
+                    <hr class="lang-line" />
+                    <span class="lang-level">Advance</span>
+                </div>
+                <div class="lang-row">
+                    <span class="lang-name">Hindi</span>
+                    <hr class="lang-line" />
+                    <span class="lang-level">Native</span>
+                </div>
+                <div class="lang-row">
+                    <span class="lang-name">Bengali</span>
+                    <hr class="lang-line" />
+                    <span class="lang-level">Native</span>
+                </div>
+                <div class="lang-row">
+                    <span class="lang-name">German</span>
+                    <hr class="lang-line" />
+                    <span class="lang-level">Elementary</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ═══════════ BOTTOM NAV BAR ═══════════ -->
+    <nav class="bottom-nav" id="bottom-nav">
+        <div class="bottom-nav-inner">
+            <a href="index.html" class="bottom-nav-item" data-label="Home">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+                <span>Home</span>
+            </a>
+            <a href="my-work.html" class="bottom-nav-item" data-label="My Work">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+                <span>My Work</span>
+            </a>
+            <a href="articles.html" class="bottom-nav-item" data-label="Articles">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                </svg>
+                <span>Articles</span>
+            </a>
+            <a href="tech-stack.html" class="bottom-nav-item" data-label="Tech Stack">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                </svg>
+                <span>Tech Stack</span>
+            </a>
+            <a href="about-me.html" class="bottom-nav-item active" data-label="About Me">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                <span>About Me</span>
+            </a>
+        </div>
+    </nav>
+
+    <script src="shared.js"></script>
+
+</body>
+
+</html>

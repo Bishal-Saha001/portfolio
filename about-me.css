@@ -1,0 +1,337 @@
+/* ══════════════════════════════════════════════════
+   ABOUT ME PAGE — STYLES
+   ══════════════════════════════════════════════════ */
+
+/* ── Page Header (matching tech-stack style) ── */
+.about-page-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.about-page-label {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted, #888);
+}
+
+/* ── Intro Section ── */
+.about-intro {
+    max-width: 620px;
+    margin: 0 auto 1.5rem;
+}
+
+.about-intro p {
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    font-weight: 400;
+    color: var(--text-body, #555);
+    line-height: 1.75;
+    margin-bottom: 1rem;
+}
+
+.about-intro p:last-child {
+    margin-bottom: 0;
+}
+
+.about-intro em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--text-dark, #1a1a1a);
+}
+
+.about-intro a {
+    color: var(--text-dark, #1a1a1a);
+    font-weight: 500;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-color: rgba(0, 0, 0, 0.25);
+    transition: text-decoration-color 0.2s ease;
+}
+
+.about-intro a:hover {
+    text-decoration-color: var(--text-dark, #1a1a1a);
+}
+
+/* ── Section Shared ── */
+.about-section {
+    max-width: 620px;
+    margin: 0 auto 1.5rem;
+}
+
+.about-section-title {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-dark, #1a1a1a);
+    margin-bottom: 1rem;
+    letter-spacing: 0.02em;
+}
+
+/* ── Experience Row (image-style) ── */
+.exp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.exp-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.35rem 0;
+}
+
+.exp-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.exp-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.exp-name {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-dark, #1a1a1a);
+    white-space: nowrap;
+}
+
+.exp-line {
+    flex: 1;
+    height: 1px;
+    border: none;
+    border-top: 1px dashed rgba(0, 0, 0, 0.15);
+    min-width: 30px;
+}
+
+.exp-role {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-muted, #888);
+    white-space: nowrap;
+}
+
+/* ── Freelance Grid ── */
+.freelance-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+}
+
+.freelance-card {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: rgba(0, 0, 0, 0.015);
+    transition: border-color 0.2s ease;
+}
+
+.freelance-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.freelance-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.freelance-name {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-dark, #1a1a1a);
+}
+
+/* ── Education Section ── */
+.edu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.edu-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    background: rgba(0, 0, 0, 0.015);
+    transition: border-color 0.2s ease;
+}
+
+.edu-card-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex: 1;
+}
+
+.edu-info {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.edu-name {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-dark, #1a1a1a);
+}
+
+.edu-year {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-muted, #888);
+}
+
+.edu-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.edu-logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.edu-course {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-muted, #888);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* ── Languages Section ── */
+.lang-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.lang-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.35rem 0;
+}
+
+.lang-name {
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-dark, #1a1a1a);
+    white-space: nowrap;
+}
+
+.lang-line {
+    flex: 1;
+    height: 1px;
+    border: none;
+    border-top: 1px dashed rgba(0, 0, 0, 0.15);
+    min-width: 30px;
+}
+
+.lang-level {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-muted, #888);
+    white-space: nowrap;
+}
+
+/* ══════════════════════════════════════════════════
+   DARK MODE
+   ══════════════════════════════════════════════════ */
+:is(html, body).dark-mode .about-intro a {
+    color: #d0d0d0;
+    text-decoration-color: rgba(255, 255, 255, 0.25);
+}
+
+:is(html, body).dark-mode .about-intro a:hover {
+    text-decoration-color: #d0d0d0;
+}
+
+:is(html, body).dark-mode .exp-icon,
+:is(html, body).dark-mode .freelance-icon {
+    border-color: transparent;
+}
+
+:is(html, body).dark-mode .exp-line {
+    border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+:is(html, body).dark-mode .freelance-card {
+    border-color: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+:is(html, body).dark-mode .edu-card {
+    border-color: rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+:is(html, body).dark-mode .edu-logo {
+    border-color: transparent;
+}
+
+:is(html, body).dark-mode .lang-line {
+    border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+    .freelance-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .exp-row {
+        gap: 0.6rem;
+    }
+
+    .exp-name,
+    .exp-role {
+        font-size: 0.8rem;
+    }
+}
