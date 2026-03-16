@@ -739,9 +739,10 @@ html.dark-mode {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    padding: 7rem 1.25rem 5rem;
-    min-height: 100vh;
-    min-height: 100dvh;
+    padding: 6.5rem 1.25rem 3rem;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
     overflow: hidden;
   }
 
@@ -809,7 +810,7 @@ html.dark-mode {
     top: auto;
     left: auto;
     align-self: flex-start;
-    margin-bottom: 8vh;
+    margin-bottom: 11vh;
     order: 1;
   }
 
