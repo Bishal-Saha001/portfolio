@@ -1154,6 +1154,10 @@ html.dark-mode {
     background: rgba(255, 255, 255, 0.15);
   }
 
+  :is(html, body).dark-mode .bottom-nav-inner {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
   /* Icon swap */
   .drawer-icon-menu { display: block; }
   .drawer-icon-close { display: none; }
