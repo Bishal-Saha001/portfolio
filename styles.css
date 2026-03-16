@@ -739,7 +739,7 @@ html.dark-mode {
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    padding: 5rem 1.25rem 5rem;
+    padding: 7rem 1.25rem 5rem;
     min-height: 100vh;
     min-height: 100dvh;
     overflow: hidden;
