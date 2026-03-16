@@ -1,0 +1,221 @@
+/* ══════════════════════════════════════════════════
+   INNER PAGES — SHARED STYLES (My Work, Articles, About Me)
+   ══════════════════════════════════════════════════ */
+
+.inner-page {
+    background: var(--bg, #faf9f6);
+    color: var(--text-dark, #1a1a1a);
+    min-height: 100vh;
+    font-family: var(--font-body);
+    padding-bottom: 100px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.page-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem 2rem;
+}
+
+.work-container {
+    max-width: 1000px;
+}
+
+/* ── Page Header ── */
+.page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-title {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-dark, #1a1a1a);
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-muted, #888);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* ── Empty State / Coming Soon ── */
+.coming-soon {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+.coming-soon-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.6;
+}
+
+.coming-soon h2 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-dark, #1a1a1a);
+    margin-bottom: 0.5rem;
+}
+
+.coming-soon p {
+    font-size: 0.95rem;
+    color: var(--text-muted, #888);
+    max-width: 400px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+:is(html, body).dark-mode.inner-page {
+    background: #060d18;
+}
+
+/* ── Projects Grid ── */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 2.5rem;
+    margin-top: 2rem;
+}
+
+.project-card {
+    background: var(--white, #fff);
+    border-radius: 4px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.4s ease, background 0.4s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+:is(html, body).dark-mode .project-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.project-card:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+:is(html, body).dark-mode .project-card:hover {
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+.project-image {
+    width: 100%;
+    overflow: hidden;
+    background: #eaeaea;
+}
+
+:is(html, body).dark-mode .project-image {
+    background: #111;
+}
+
+.project-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.project-content {
+    padding: 2.5rem 2.2rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
+    overflow: hidden; /* Important to hide the link initially if it slides in */
+}
+
+.project-info {
+    transform: translateY(18px); /* Start lower so it can move up */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .project-info {
+    transform: translateY(-8px); /* Move text block up on hover */
+}
+
+.project-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 0.8rem;
+}
+
+.project-text-wrapper {
+    line-height: 1.6;
+}
+
+.project-subtitle {
+    display: inline;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--text-body);
+}
+
+.project-desc {
+    display: inline;
+    font-size: 1.05rem;
+    color: var(--text-body);
+}
+
+.project-link {
+    position: absolute;
+    bottom: 2.2rem;
+    left: 2.2rem;
+    font-size: 1.05rem;
+    color: #4a90e2; /* Keeping our blue color for the highlight */
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(15px); /* Start lower */
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    pointer-events: none; /* Prevent clicks when hidden */
+}
+
+.project-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-link {
+    opacity: 1;
+    transform: translateY(0); /* Slide up into view */
+    pointer-events: auto; /* Enable clicks when visible */
+}
+
+.project-card:hover .project-arrow {
+    transform: translateX(6px); /* Slide arrow to the right instead of animating back and forth */
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-container {
+        padding-top: 5.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .page-container {
+        padding: 5.5rem 1.2rem 2rem;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+}

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tech Stack — Bishal Saha</title>
+    <meta name="description"
+        content="Skills and tools used by Bishal Saha — UX Design, Technical Skills, and Design Tools." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="tech-stack.css" />
+    <script>
+        const savedTheme = localStorage.getItem('theme') || (localStorage.getItem('darkMode') === 'true' ? 'dark' : 'light');
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        }
+    </script>
+</head>
+
+<body class="stack-page">
+
+    <!-- Top-right utilities -->
+    <div class="top-utils">
+        <div class="theme-toggle-group" id="theme-toggle-group" data-active="light">
+            <div class="theme-toggle-slider" id="theme-toggle-slider"></div>
+            <button class="theme-btn" data-theme="light" aria-label="Light mode">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                Light
+            </button>
+            <button class="theme-btn" data-theme="dark" aria-label="Dark mode">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                Dark
+            </button>
+        </div>
+        <a href="https://www.linkedin.com/in/bishal-saha-product-designer/" target="_blank" rel="noopener"
+            class="util-btn" aria-label="View my LinkedIn" data-tooltip="View my LinkedIn">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+            </svg>
+        </a>
+        <a href="mailto:sahabishal59@gmail.com" class="util-btn" aria-label="Write a mail" data-tooltip="Write a mail">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+            </svg>
+        </a>
+    </div>
+
+    <div class="stack-container">
+
+        <header class="stack-header">
+            <p class="stack-label">Tech Stack</p>
+        </header>
+
+        <!-- ═══════════ UX & DESIGN SKILLS ═══════════ -->
+        <section class="stack-section">
+            <h2 class="stack-section-title">UX & Design Skills</h2>
+            <div class="stack-grid">
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/User_Research.svg" alt="User Research" /></span>
+                    <span class="stack-name">User Research</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Information_Architecture.svg"
+                            alt="Information Architecture" /></span>
+                    <span class="stack-name">Information Architecture</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Design_System.svg" alt="Design System" /></span>
+                    <span class="stack-name">Design System</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Wireframing.svg" alt="Prototyping" /></span>
+                    <span class="stack-name">Prototyping</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Visual_Design.svg" alt="Visual Design" /></span>
+                    <span class="stack-name">Visual Design</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Interaction_Design.svg" alt="Interaction Design" /></span>
+                    <span class="stack-name">Interaction Design</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Usability_Testing.svg"
+                            alt="Usability &amp; A/B Testing" /></span>
+                    <span class="stack-name">Usability & A/B Testing</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Web_Accessibility.svg" alt="Web Accessibility" /></span>
+                    <span class="stack-name">Web Accessibility</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════ TECHNICAL SKILLS ═══════════ -->
+        <section class="stack-section">
+            <h2 class="stack-section-title">Technical Skills</h2>
+            <div class="stack-grid">
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/HTML_5.svg" alt="HTML 5" /></span>
+                    <span class="stack-name">HTML 5</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/CSS_3.svg" alt="CSS 3" /></span>
+                    <span class="stack-name">CSS 3</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Bootstrap.svg" alt="Bootstrap" /></span>
+                    <span class="stack-name">Bootstrap</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Data_analysis_&_Visualization.svg"
+                            alt="Data Analysis &amp; Visualisation" /></span>
+                    <span class="stack-name">Data Analysis & Visualisation</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Calude.svg" alt="Claude" /></span>
+                    <span class="stack-name">Claude Code</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════ TOOLS ═══════════ -->
+        <section class="stack-section">
+            <h2 class="stack-section-title">Tools</h2>
+            <div class="stack-grid">
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Figma.svg" alt="Figma" /></span>
+                    <span class="stack-name">Figma</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Axure_RP.svg" alt="Axure RP" /></span>
+                    <span class="stack-name">Axure RP</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Adobe_Illustrator.svg" alt="Adobe Illustrator" /></span>
+                    <span class="stack-name">Adobe Illustrator</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Framer.svg" alt="Webflow" /></span>
+                    <span class="stack-name">Webflow</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Miro.svg" alt="Miro" /></span>
+                    <span class="stack-name">Miro</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Invision.svg" alt="inVision" /></span>
+                    <span class="stack-name">inVision</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Google_Analytics.svg" alt="Google Analytics" /></span>
+                    <span class="stack-name">Google Analytics</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/WordPress.svg" alt="WordPress" /></span>
+                    <span class="stack-name">WordPress</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Tableau.svg" alt="Tableau" /></span>
+                    <span class="stack-name">Tableau</span>
+                </div>
+                <div class="stack-item">
+                    <span class="stack-icon"><img src="Assets/Google_Antigravity.svg" alt="Google Antigravity" /></span>
+                    <span class="stack-name">Google Antigravity</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ═══════════ BOTTOM NAV BAR ═══════════ -->
+    <nav class="bottom-nav" id="bottom-nav">
+        <div class="bottom-nav-inner">
+            <button class="nav-drawer-toggle" id="nav-drawer-toggle" aria-label="Toggle navigation">
+              <svg class="drawer-icon-menu" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+              </svg>
+              <svg class="drawer-icon-close" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+              </svg>
+            </button>
+            <div class="nav-drawer-divider"></div>
+            <a href="index.html" class="bottom-nav-item" data-label="Home">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                    <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+                <span>Home</span>
+            </a>
+            <a href="my-work.html" class="bottom-nav-item" data-label="My Work">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+                <span>My Work</span>
+            </a>
+            <a href="articles.html" class="bottom-nav-item" data-label="Articles">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                </svg>
+                <span>Articles</span>
+            </a>
+            <a href="tech-stack.html" class="bottom-nav-item active" data-label="Tech Stack">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="16 18 22 12 16 6" />
+                    <polyline points="8 6 2 12 8 18" />
+                </svg>
+                <span>Tech Stack</span>
+            </a>
+            <a href="about-me.html" class="bottom-nav-item" data-label="About Me">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                <span>About Me</span>
+            </a>
+        </div>
+    </nav>
+
+    <script src="shared.js"></script>
+
+</body>
+
+</html>
