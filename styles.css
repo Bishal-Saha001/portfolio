@@ -1155,7 +1155,7 @@ html.dark-mode {
   }
 
   :is(html, body).dark-mode .bottom-nav-inner {
-    border: 1px solid rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(255, 0, 0, 0.7);
   }
 
   /* Icon swap */
