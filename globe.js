@@ -216,16 +216,22 @@
   // Animate the Bangalore pin pulse
   let animId;
   function animate() {
+    applyMomentum();
     draw();
     animId = requestAnimationFrame(animate);
   }
 
-  // Touch/drag rotation
+  // Touch/drag rotation with momentum
   let isDragging = false;
   let lastX, lastY;
+  let velocityX = 0, velocityY = 0;
+  const friction = 0.92;
+  const sens = 0.35;
 
   canvas.addEventListener('pointerdown', (e) => {
     isDragging = true;
+    velocityX = 0;
+    velocityY = 0;
     lastX = e.clientX;
     lastY = e.clientY;
     canvas.setPointerCapture(e.pointerId);
@@ -236,14 +242,24 @@
     const dx = e.clientX - lastX;
     const dy = e.clientY - lastY;
 
+    velocityX = dx * sens;
+    velocityY = dy * sens;
+
     const rot = projection.rotate();
-    // Sensitivity based on globe size
-    const sens = 0.4;
-    projection.rotate([rot[0] + dx * sens, rot[1] - dy * sens]);
+    projection.rotate([rot[0] + velocityX, rot[1] - velocityY]);
 
     lastX = e.clientX;
     lastY = e.clientY;
   });
+
+  function applyMomentum() {
+    if (!isDragging && (Math.abs(velocityX) > 0.05 || Math.abs(velocityY) > 0.05)) {
+      velocityX *= friction;
+      velocityY *= friction;
+      const rot = projection.rotate();
+      projection.rotate([rot[0] + velocityX, rot[1] - velocityY]);
+    }
+  }
 
   canvas.addEventListener('pointerup', () => { isDragging = false; });
   canvas.addEventListener('pointercancel', () => { isDragging = false; });
