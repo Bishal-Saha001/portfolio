@@ -1,5 +1,6 @@
 /* ══════════════════════════════════════════════════
    MOBILE PARTICLES — Subtle floating particles
+   + Touch-interactive burst particles
    Only runs on mobile (≤768px)
    ══════════════════════════════════════════════════ */
 (() => {
@@ -40,7 +41,7 @@
     return document.documentElement.classList.contains('dark-mode');
   }
 
-  // Particle config
+  // ── Ambient particles ──
   const PARTICLE_COUNT = 40;
   const particles = [];
 
@@ -66,22 +67,79 @@
     particles.push(createParticle());
   }
 
-  // Connection lines between nearby particles
+  // ── Touch-burst particles ──
+  const burstParticles = [];
+  const BURST_COUNT = 6;        // particles per touch burst
+  const BURST_LIFESPAN = 90;    // frames before fade out
+  const BURST_MOVE_COUNT = 3;   // particles per move event
+
+  function spawnBurst(x, y, count) {
+    for (let i = 0; i < count; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 1.8 + 0.5;
+      const size = Math.random() * 3 + 1.5;
+      burstParticles.push({
+        x: x,
+        y: y,
+        size: size,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        opacity: Math.random() * 0.4 + 0.3,
+        life: BURST_LIFESPAN,
+        maxLife: BURST_LIFESPAN,
+        friction: 0.97,
+      });
+    }
+  }
+
+  // Touch/pointer event handlers — enable interactive canvas
+  let lastSpawnTime = 0;
+  const SPAWN_THROTTLE = 60; // ms between spawns during drag
+
+  // Make canvas accept pointer events for interaction
+  canvas.style.pointerEvents = 'auto';
+  canvas.style.touchAction = 'none';
+
+  canvas.addEventListener('pointerdown', (e) => {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    spawnBurst(x, y, BURST_COUNT);
+    lastSpawnTime = Date.now();
+  });
+
+  canvas.addEventListener('pointermove', (e) => {
+    // Only spawn if pointer is pressed (dragging)
+    if (e.pressure === 0 && e.buttons === 0) return;
+    const now = Date.now();
+    if (now - lastSpawnTime < SPAWN_THROTTLE) return;
+
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    spawnBurst(x, y, BURST_MOVE_COUNT);
+    lastSpawnTime = now;
+  });
+
+  // Connection lines between nearby particles (ambient + burst)
   function drawConnections(time) {
     const maxDist = 100;
     const dark = isDark();
 
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        const dx = particles[i].x - particles[j].x;
-        const dy = particles[i].y - particles[j].y;
+    // Combine ambient and burst particles for connections
+    const all = [...particles, ...burstParticles];
+
+    for (let i = 0; i < all.length; i++) {
+      for (let j = i + 1; j < all.length; j++) {
+        const dx = all[i].x - all[j].x;
+        const dy = all[i].y - all[j].y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < maxDist) {
           const alpha = (1 - dist / maxDist) * 0.06;
           ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.moveTo(all[i].x, all[i].y);
+          ctx.lineTo(all[j].x, all[j].y);
           ctx.strokeStyle = dark
             ? `rgba(180, 200, 255, ${alpha})`
             : `rgba(180, 140, 80, ${alpha})`;
@@ -102,6 +160,7 @@
 
     drawConnections(time);
 
+    // Draw ambient particles
     for (const p of particles) {
       // Gentle sine drift
       const driftX = Math.sin(time * 0.01 + p.driftOffset) * p.drift;
@@ -138,6 +197,41 @@
       ctx.fill();
     }
 
+    // Draw & update touch-burst particles
+    for (let i = burstParticles.length - 1; i >= 0; i--) {
+      const bp = burstParticles[i];
+      bp.x += bp.vx;
+      bp.y += bp.vy;
+      bp.vx *= bp.friction;
+      bp.vy *= bp.friction;
+      bp.life--;
+
+      // Fade out based on remaining life
+      const lifeRatio = bp.life / bp.maxLife;
+      const fadeOpacity = bp.opacity * lifeRatio;
+
+      if (bp.life <= 0) {
+        burstParticles.splice(i, 1);
+        continue;
+      }
+
+      // Draw burst particle — brighter glow
+      ctx.beginPath();
+      ctx.arc(bp.x, bp.y, bp.size * (0.5 + lifeRatio * 0.5), 0, Math.PI * 2);
+      ctx.fillStyle = dark
+        ? `rgba(180, 210, 255, ${fadeOpacity})`
+        : `rgba(230, 190, 110, ${fadeOpacity})`;
+      ctx.fill();
+
+      // Outer glow for burst
+      ctx.beginPath();
+      ctx.arc(bp.x, bp.y, bp.size * 2, 0, Math.PI * 2);
+      ctx.fillStyle = dark
+        ? `rgba(160, 190, 255, ${fadeOpacity * 0.2})`
+        : `rgba(220, 180, 100, ${fadeOpacity * 0.2})`;
+      ctx.fill();
+    }
+
     animId = requestAnimationFrame(draw);
   }
 
@@ -146,3 +240,4 @@
     animId = requestAnimationFrame(draw);
   }, 500);
 })();
+
