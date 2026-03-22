@@ -213,10 +213,17 @@
     drawGlobe();
   }
 
-  // Animate the Bangalore pin pulse
+  // Animate the Bangalore pin pulse + auto-rotate
   let animId;
+  const AUTO_ROTATE_SPEED = 0.15; // degrees per frame (slow drift)
+
   function animate() {
     applyMomentum();
+    // Auto-rotate when not dragging and momentum has settled
+    if (!isDragging && Math.abs(velocityX) < 0.05 && Math.abs(velocityY) < 0.05) {
+      const rot = projection.rotate();
+      projection.rotate([rot[0] + AUTO_ROTATE_SPEED, rot[1]]);
+    }
     draw();
     animId = requestAnimationFrame(animate);
   }
