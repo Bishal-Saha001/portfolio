@@ -733,13 +733,13 @@ html.dark-mode {
     height: 20px;
   }
 
-  /* Hero — switch to flex column flow */
+  /* Hero — switch to flex column flow with space-between distribution */
   .hero {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    padding: 6.5rem 1.25rem 3rem;
+    padding: clamp(5rem, 8vh, 7rem) clamp(1.25rem, 4vw, 2rem) clamp(5rem, 8vh, 7rem);
     height: 100vh;
     height: 100dvh;
     max-height: 100dvh;
@@ -752,15 +752,15 @@ html.dark-mode {
       linear-gradient(180deg, var(--bg) 0%, #faf3e6 30%, #f5e4c4 65%, #f0d9a8 100%);
   }
 
-  /* Mobile globe — half-visible, right-aligned, between greeting and name */
+  /* Mobile globe — half-visible, right-aligned */
   .mobile-globe {
     display: block;
     position: absolute;
-    right: -35%;
+    right: -30%;
     top: 42%;
     transform: translateY(-50%);
-    width: 80vw;
-    height: 80vw;
+    width: min(80vw, 350px);
+    height: min(80vw, 350px);
     z-index: 2;
     pointer-events: auto;
     opacity: 0;
@@ -804,14 +804,15 @@ html.dark-mode {
     display: none !important;
   }
 
-  /* Greeting — stays at top with controlled gap below */
+  /* Greeting — stays at top, left-aligned */
   .hero-greeting-text {
     position: relative;
     top: auto;
     left: auto;
     align-self: flex-start;
-    margin-bottom: 11vh;
+    margin-bottom: 0;
     order: 1;
+    flex-shrink: 0;
   }
 
   .hero-greeting-text.hero-anim {
@@ -823,51 +824,61 @@ html.dark-mode {
   }
 
   .greeting-hey {
-    font-size: clamp(3.5rem, 18vw, 5rem);
+    font-size: clamp(2.8rem, 10vw, 4.2rem);
   }
 
-  /* Name — below greeting, pushed down by margin-bottom: auto */
+  /* Flexible spacer between greeting and bottom group */
+  .hero-greeting-text::after {
+    content: '';
+    display: block;
+  }
+
+  /* Name — left-aligned, positioned in bottom group */
   .hero-name {
     position: relative;
     bottom: auto;
     left: auto;
     align-self: flex-start;
-    margin-bottom: 1.25rem;
+    margin-top: auto;
+    margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
     order: 2;
+    flex-shrink: 0;
   }
 
   .hero-name span {
-    font-size: clamp(3rem, 17vw, 4.5rem);
+    font-size: clamp(2.5rem, 11vw, 4rem);
     line-height: 0.92;
   }
 
-  /* Specialization text — right-aligned, re-shown on mobile */
+  /* Specialization text — left-aligned on mobile for consistency */
   .specialization-text {
     display: block !important;
     position: relative;
     right: auto;
     top: auto;
-    text-align: right;
-    align-self: flex-end;
-    font-size: 0.88rem;
-    line-height: 1.65;
-    margin-top: 4.2rem;
-    margin-bottom: 1.25rem;
+    text-align: left;
+    align-self: flex-start;
+    font-size: clamp(0.8rem, 2.2vw, 0.92rem);
+    line-height: 1.7;
+    margin-top: 0;
+    margin-bottom: clamp(1.5rem, 3vh, 2.5rem);
     order: 3;
+    flex-shrink: 0;
   }
 
-  /* Role — right-aligned at bottom */
+  /* Role — right-aligned at bottom for visual balance */
   .hero-role {
     position: relative;
     bottom: auto;
     right: auto;
     align-self: flex-end;
     order: 4;
+    flex-shrink: 0;
   }
 
   .hero-role span {
-    font-size: clamp(1.8rem, 9vw, 2.5rem);
-    line-height: 1.0;
+    font-size: clamp(1.5rem, 6.5vw, 2.2rem);
+    line-height: 1.05;
   }
 
   /* Bottom nav — icons only */
@@ -889,15 +900,19 @@ html.dark-mode {
 /* ── Small mobile: up to 540px ── */
 @media (max-width: 540px) {
   .greeting-hey {
-    font-size: clamp(2.8rem, 15vw, 4rem);
+    font-size: clamp(2.5rem, 9.5vw, 3.5rem);
   }
 
   .hero-name span {
-    font-size: clamp(2.4rem, 14vw, 3.5rem);
+    font-size: clamp(2.2rem, 10.5vw, 3.2rem);
   }
 
   .hero-role span {
-    font-size: clamp(1.5rem, 8.5vw, 2rem);
+    font-size: clamp(1.3rem, 6vw, 1.8rem);
+  }
+
+  .specialization-text {
+    font-size: clamp(0.75rem, 2.5vw, 0.88rem);
   }
 
   /* Stack theme toggle and icons when very narrow */
@@ -926,19 +941,29 @@ html.dark-mode {
 /* ── Very small mobile: up to 380px ── */
 @media (max-width: 380px) {
   .hero {
-    padding: 4.5rem 1rem 5.5rem;
+    padding: clamp(3.5rem, 6vh, 4.5rem) 1rem clamp(3.5rem, 6vh, 4.5rem);
   }
 
   .greeting-hey {
-    font-size: clamp(2.2rem, 13vw, 3rem);
+    font-size: clamp(2rem, 8.5vw, 2.6rem);
   }
 
   .hero-name span {
-    font-size: clamp(2rem, 12vw, 2.8rem);
+    font-size: clamp(1.8rem, 9.5vw, 2.3rem);
+  }
+
+  .hero-name {
+    margin-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
   }
 
   .hero-role span {
-    font-size: clamp(1.2rem, 7.5vw, 1.6rem);
+    font-size: clamp(1rem, 5vw, 1.3rem);
+  }
+
+  .specialization-text {
+    font-size: 0.72rem;
+    line-height: 1.55;
+    margin-bottom: clamp(0.75rem, 1.5vh, 1.25rem);
   }
 
   /* Hide theme text labels, show only icons */
@@ -951,6 +976,36 @@ html.dark-mode {
   .theme-btn svg {
     width: 14px;
     height: 14px;
+  }
+}
+
+/* ── Short viewport height — for devices like iPhone SE (568px tall) ── */
+@media (max-height: 700px) and (max-width: 768px) {
+  .hero {
+    padding-top: clamp(3.5rem, 6vh, 4.5rem);
+    padding-bottom: clamp(3rem, 5vh, 4rem);
+  }
+
+  .greeting-hey {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+  }
+
+  .hero-name {
+    margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+  }
+
+  .hero-name span {
+    font-size: clamp(1.8rem, 9vw, 2.5rem);
+  }
+
+  .specialization-text {
+    font-size: 0.72rem;
+    line-height: 1.5;
+    margin-bottom: clamp(0.5rem, 1.5vh, 1rem);
+  }
+
+  .hero-role span {
+    font-size: clamp(1rem, 5vw, 1.4rem);
   }
 }
 
