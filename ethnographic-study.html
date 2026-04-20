@@ -274,10 +274,138 @@
         }
 
         @media (max-width: 1180px) {
-            .toc {
+            .toc.toc-inline {
+                position: static;
+                top: auto;
+                left: auto;
+                width: auto;
+                max-height: none;
+                overflow: visible;
+                margin: 0 0 2rem;
+                padding: 0;
+                border: 1px solid var(--border-soft);
+                border-radius: 10px;
+                background: var(--card-bg);
+                font-size: 0.82rem;
+            }
+
+            .toc.toc-inline .toc-header {
+                padding: 0.7rem 0.95rem;
+                margin-bottom: 0;
+                border-bottom: none;
+                cursor: pointer;
+                user-select: none;
+            }
+
+            .toc.toc-inline .toc-title {
+                font-size: 0.78rem;
+                font-weight: 600;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--text-muted);
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            .toc.toc-inline .toc-title::before {
+                content: "";
+                width: 14px;
+                height: 2px;
+                background: var(--accent-orange);
+                display: inline-block;
+            }
+
+            .toc.toc-inline .toc-toggle {
+                padding: 0.1rem 0.5rem;
+                font-size: 0.72rem;
+            }
+
+            .toc.toc-inline .toc-list {
+                border-left: none;
+                border-top: 1px solid var(--border-soft);
+                padding: 0.4rem 0.75rem 0.6rem;
+                gap: 0;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                column-gap: 0.4rem;
+            }
+
+            .toc.toc-inline .toc-list > li {
+                min-width: 0;
+            }
+
+            .toc.toc-inline .toc-list > li:has(.toc-sublist) {
+                grid-column: 1 / -1;
+            }
+
+            .toc.toc-inline .toc-link {
+                padding: 0.45rem 0.5rem;
+                border-left: none;
+                border-radius: 6px;
+                margin-left: 0;
+                font-size: 0.85rem;
+                line-height: 1.3;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .toc.toc-inline .toc-link.active {
+                background: rgba(245, 166, 35, 0.12);
+                border-left: none;
+                color: var(--accent-orange);
+            }
+
+            .toc.toc-inline .toc-parent {
+                padding-right: 0.25rem;
+            }
+
+            .toc.toc-inline .toc-sub-toggle {
+                padding: 0.2rem 0.3rem;
+            }
+
+            .toc.toc-inline .toc-sublist {
+                margin: 0.15rem 0 0.35rem;
+                padding: 0.25rem 0;
+                border-left: none;
+                background: transparent;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 0.3rem;
+            }
+
+            .toc.toc-inline .toc-sublink {
+                padding: 0.25rem 0.6rem;
+                font-size: 0.75rem;
+                background: var(--card-bg);
+                border: 1px solid var(--border-soft);
+                border-radius: 999px;
+                color: var(--text-body);
+            }
+
+            .toc.toc-inline .toc-sublink.active {
+                background: var(--accent-orange);
+                color: #fff;
+                border-color: var(--accent-orange);
+            }
+
+            .toc.toc-inline.collapsed .toc-list {
+                display: none;
+            }
+
+            .toc:not(.toc-inline) {
                 display: none;
             }
         }
+
+        @media (max-width: 520px) {
+            .toc.toc-inline .toc-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
 
         /* ═══════════ APPEARANCE PANEL ═══════════ */
         .appearance {
@@ -985,6 +1113,42 @@
     </article>
 
     <script>
+               (function () {
+            const toc = document.getElementById('toc');
+            const introHeading = document.getElementById('Introduction');
+            const articleBody = introHeading ? introHeading.parentNode : null;
+            const defaultParent = toc ? toc.parentNode : null;
+            const defaultNextSibling = toc ? toc.nextSibling : null;
+            const mobileMql = window.matchMedia('(max-width: 1180px)');
+
+            function placeToc(e) {
+                if (!toc || !articleBody || !introHeading) return;
+                const toggleBtn = document.getElementById('toc-toggle');
+                if (e.matches) {
+                    toc.classList.add('toc-inline');
+                    toc.classList.add('collapsed');
+                    if (toggleBtn) {
+                        toggleBtn.textContent = 'show';
+                        toggleBtn.setAttribute('aria-expanded', 'false');
+                    }
+                    articleBody.insertBefore(toc, introHeading);
+                } else {
+                    toc.classList.remove('toc-inline');
+                    toc.classList.remove('collapsed');
+                    if (toggleBtn) {
+                        toggleBtn.textContent = 'hide';
+                        toggleBtn.setAttribute('aria-expanded', 'true');
+                    }
+                    if (defaultParent) {
+                        defaultParent.insertBefore(toc, defaultNextSibling);
+                    }
+                }
+            }
+
+            placeToc(mobileMql);
+            mobileMql.addEventListener('change', placeToc);
+        })();
+        
         (function () {
             const toc = document.getElementById('toc');
             const toggle = document.getElementById('toc-toggle');
