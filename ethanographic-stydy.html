@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Ethnography — Bishal Saha</title>
+    <meta name="description"
+        content="An article on digital ethnography: combining technical walkthroughs with participant observation to study online communities." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <script>
+        const savedTheme = localStorage.getItem('theme') || (localStorage.getItem('darkMode') === 'true' ? 'dark' : 'light');
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark-mode');
+        }
+    </script>
+    <style>
+        /* ═══════════ DESIGN TOKENS ═══════════ */
+        :root {
+            --bg: #faf8f5;
+            --text-dark: #1a1a1a;
+            --text-body: #3a3a3a;
+            --text-muted: #6b6b6b;
+            --accent-orange: #f5a623;
+            --border-soft: rgba(0, 0, 0, 0.08);
+            --card-bg: #ffffff;
+            --font-heading: 'Outfit', 'Inter', -apple-system, sans-serif;
+            --font-script: 'Playfair Display', Georgia, serif;
+            --font-body: 'Inter', -apple-system, sans-serif;
+        }
+
+        html.dark-mode {
+            --bg: #060d18;
+            --text-dark: #f5f5f5;
+            --text-body: #d4d4d4;
+            --text-muted: #9a9a9a;
+            --border-soft: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        /* ═══════════ RESET ═══════════ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding-bottom: 120px;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* ═══════════ TOP UTILS ═══════════ */
+        .top-utils {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            z-index: 100;
+        }
+
+        .util-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            border: 1px solid var(--border-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-dark);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .util-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ═══════════ ARTICLE CONTAINER ═══════════ */
+        .article-container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 5rem 2rem 2rem;
+        }
+
+        /* ═══════════ TABLE OF CONTENTS ═══════════ */
+        .toc {
+            position: fixed;
+            top: 5rem;
+            left: 2rem;
+            width: 230px;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
+            padding: 1.25rem 1.25rem 1.25rem 1rem;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            z-index: 50;
+        }
+
+        .toc-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .toc-title {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: -0.01em;
+        }
+
+        .toc-toggle {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-soft);
+            border-radius: 4px;
+            padding: 0.15rem 0.55rem;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        html.dark-mode .toc-toggle {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .toc-toggle:hover {
+            background: rgba(0, 0, 0, 0.09);
+            color: var(--text-dark);
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+            border-left: 1px solid var(--border-soft);
+        }
+
+        .toc.collapsed .toc-list {
+            display: none;
+        }
+
+        .toc-link {
+            display: block;
+            position: relative;
+            padding: 0.4rem 0 0.4rem 0.9rem;
+            margin-left: -1px;
+            color: var(--text-muted);
+            line-height: 1.45;
+            border-left: 2px solid transparent;
+            transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+        }
+
+        .toc-link:hover {
+            color: var(--text-dark);
+            border-left-color: var(--border-soft);
+        }
+
+        .toc-link.active {
+            color: var(--text-dark);
+            font-weight: 600;
+            border-left-color: var(--accent-orange);
+        }
+
+        .toc-parent {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.25rem;
+        }
+
+        .toc-parent .toc-link {
+            flex: 1;
+        }
+
+        .toc-sub-toggle {
+            background: transparent;
+            border: none;
+            padding: 0.25rem 0.35rem;
+            margin-right: 0.15rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            transition: transform 0.2s ease, color 0.2s ease, background 0.2s ease;
+        }
+
+        .toc-sub-toggle:hover {
+            color: var(--text-dark);
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        html.dark-mode .toc-sub-toggle:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .toc-sub-toggle[aria-expanded="false"] svg {
+            transform: rotate(-90deg);
+        }
+
+        .toc-sub-toggle svg {
+            transition: transform 0.2s ease;
+        }
+
+        .toc-sublist {
+            list-style: none;
+            padding: 0;
+            margin: 0.15rem 0 0.15rem 0.9rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.1rem;
+            border-left: 1px solid var(--border-soft);
+            overflow: hidden;
+            max-height: 500px;
+            transition: max-height 0.25s ease, opacity 0.2s ease, margin 0.2s ease;
+        }
+
+        .toc-sublist[hidden] {
+            display: flex;
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            pointer-events: none;
+        }
+
+        .toc-sublink {
+            font-size: 0.82rem;
+            padding-top: 0.3rem;
+            padding-bottom: 0.3rem;
+        }
+
+        /* Smooth offset for anchor jumps */
+        .article-body h2,
+        .article-body h3,
+        .references {
+            scroll-margin-top: 2rem;
+        }
+
+        @media (max-width: 1180px) {
+            .toc {
+                display: none;
+            }
+        }
+
+        /* ═══════════ APPEARANCE PANEL ═══════════ */
+        .appearance {
+            position: fixed;
+            top: 5rem;
+            right: 2rem;
+            width: 220px;
+            max-height: calc(100vh - 7rem);
+            overflow-y: auto;
+            padding: 1.25rem 1.25rem 1.25rem 1rem;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            z-index: 50;
+        }
+
+        .appearance-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .appearance-title {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .appearance-toggle {
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border-soft);
+            border-radius: 4px;
+            padding: 0.15rem 0.55rem;
+            font-family: var(--font-body);
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        html.dark-mode .appearance-toggle {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .appearance-toggle:hover {
+            background: rgba(0, 0, 0, 0.09);
+            color: var(--text-dark);
+        }
+
+        .appearance.collapsed .appearance-body {
+            display: none;
+        }
+
+        .appearance-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .appearance-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .appearance-group-label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .appearance-option {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.35rem 0;
+            cursor: pointer;
+            color: var(--text-dark);
+            user-select: none;
+        }
+
+        .appearance-option input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .appearance-radio {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 1.5px solid var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: border-color 0.2s ease;
+        }
+
+        .appearance-radio::after {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-orange);
+            transform: scale(0);
+            transition: transform 0.15s ease;
+        }
+
+        .appearance-option input:checked~.appearance-radio {
+            border-color: var(--accent-orange);
+        }
+
+        .appearance-option input:checked~.appearance-radio::after {
+            transform: scale(1);
+        }
+
+        .appearance-option:hover .appearance-radio {
+            border-color: var(--text-dark);
+        }
+
+        /* Text size variations */
+        body.text-small .article-body {
+            font-size: 0.95rem;
+        }
+
+        body.text-large .article-body {
+            font-size: 1.18rem;
+        }
+
+        @media (max-width: 1180px) {
+            .appearance {
+                display: none;
+            }
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            transition: color 0.2s ease, gap 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-orange);
+            gap: 0.75rem;
+        }
+
+        /* ═══════════ ARTICLE HEADER ═══════════ */
+        .article-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .article-eyebrow {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent-orange);
+            margin-bottom: 1rem;
+        }
+
+        .article-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.6rem;
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .article-subtitle {
+            font-family: var(--font-script);
+            font-style: italic;
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 1.75rem;
+        }
+
+        .article-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .article-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* ═══════════ ARTICLE BODY ═══════════ */
+        .article-body {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-body);
+        }
+
+        .article-body h2 {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-top: 2.75rem;
+            margin-bottom: 1rem;
+            padding-top: 2.75rem;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .article-body h2:first-of-type {
+            padding-top: 0;
+            border-top: none;
+        }
+
+        .article-body h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .article-body p {
+            margin-bottom: 1.25rem;
+        }
+
+        .article-body p+p {
+            margin-top: -0.25rem;
+        }
+
+        .article-body strong {
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .article-body em {
+            font-family: var(--font-script);
+            font-style: italic;
+        }
+
+        .article-body ul {
+            margin: 1rem 0 1.5rem 1.5rem;
+            padding-left: 0.5rem;
+        }
+
+        .article-body ul li {
+            margin-bottom: 0.6rem;
+            line-height: 1.7;
+        }
+
+        .article-body ul li::marker {
+            color: var(--accent-orange);
+        }
+
+        /* ═══════════ PULL QUOTE ═══════════ */
+        .pull-quote {
+            margin: 2.5rem 0;
+            padding: 1.75rem 1.75rem 1.75rem 2rem;
+            border-left: 3px solid var(--accent-orange);
+            background: var(--card-bg);
+            border-radius: 0 6px 6px 0;
+            font-family: var(--font-script);
+            font-style: italic;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--text-body);
+        }
+
+        .pull-quote cite {
+            display: block;
+            margin-top: 0.75rem;
+            font-family: var(--font-body);
+            font-style: normal;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* ═══════════ REFERENCE LIST ═══════════ */
+        .references {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-soft);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .references h3 {
+            font-family: var(--font-heading);
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .references ol {
+            padding-left: 1.25rem;
+            line-height: 1.7;
+        }
+
+        .references ol li {
+            margin-bottom: 0.75rem;
+        }
+
+        .references a {
+            color: var(--accent-orange);
+            border-bottom: 1px dotted var(--accent-orange);
+        }
+
+        /* ═══════════ THANK YOU ═══════════ */
+        .thank-you {
+            margin-top: 3.5rem;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .thank-you-title {
+            font-family: var(--font-script);
+            font-style: italic;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .thank-you-text {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .thank-you-sign {
+            display: inline-block;
+            margin-top: 1.25rem;
+            font-family: var(--font-script);
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--accent-orange);
+        }
+
+        /* ═══════════ BOTTOM NAV ═══════════ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--card-bg);
+            border: 1px solid var(--border-soft);
+            border-radius: 999px;
+            padding: 0.5rem;
+            display: flex;
+            gap: 0.25rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+            z-index: 90;
+        }
+
+        .bottom-nav a {
+            padding: 0.6rem 1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .bottom-nav a:hover {
+            color: var(--text-dark);
+        }
+
+        .bottom-nav a.active {
+            background: var(--text-dark);
+            color: var(--bg);
+        }
+
+        /* ═══════════ RESPONSIVE ═══════════ */
+        @media (max-width: 640px) {
+            .article-container {
+                padding: 4rem 1.25rem 2rem;
+            }
+
+            .article-title {
+                font-size: 2rem;
+            }
+
+            .article-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .article-body {
+                font-size: 1rem;
+            }
+
+            .article-body h2 {
+                font-size: 1.35rem;
+            }
+
+            .pull-quote {
+                padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+                font-size: 1rem;
+            }
+
+            .bottom-nav a {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Top-right utilities -->
+    <div class="top-utils">
+        <a href="https://www.linkedin.com/in/bishal-saha-product-designer/" target="_blank" rel="noopener"
+            class="util-btn" aria-label="View my LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                <rect x="2" y="9" width="4" height="12" />
+                <circle cx="4" cy="4" r="2" />
+            </svg>
+        </a>
+        <a href="mailto:sahabishal59@gmail.com" class="util-btn" aria-label="Write a mail">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+            </svg>
+        </a>
+    </div>
+
+    <!-- Table of Contents -->
+    <aside class="toc" id="toc" aria-label="Table of contents">
+        <div class="toc-header">
+            <span class="toc-title">Contents</span>
+            <button type="button" class="toc-toggle" id="toc-toggle" aria-expanded="true">hide</button>
+        </div>
+        <ul class="toc-list">
+            <li><a href="#Introduction" class="toc-link" data-target="Introduction">Introduction</a></li>
+            <li><a href="#Methodology" class="toc-link" data-target="Methodology">Methodology</a></li>
+            <li>
+                <div class="toc-parent">
+                    <a href="#Findings" class="toc-link" data-target="Findings">Findings</a>
+                    <button type="button" class="toc-sub-toggle" aria-expanded="true" aria-controls="toc-findings-sub"
+                        aria-label="Toggle Findings subsections">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                    </button>
+                </div>
+                <ul class="toc-sublist" id="toc-findings-sub">
+                    <li><a href="#story-1" class="toc-link toc-sublink" data-target="story-1">Story 1</a></li>
+                    <li><a href="#story-2" class="toc-link toc-sublink" data-target="story-2">Story 2</a></li>
+                    <li><a href="#story-3" class="toc-link toc-sublink" data-target="story-3">Story 3</a></li>
+                    <li><a href="#story-4" class="toc-link toc-sublink" data-target="story-4">Story 4</a></li>
+                    <li><a href="#story-5" class="toc-link toc-sublink" data-target="story-5">Story 5</a></li>
+                </ul>
+            </li>
+            <li><a href="#Discussion" class="toc-link" data-target="Discussion">Discussion</a></li>
+            <li><a href="#Potential Research Topic" class="toc-link" data-target="Potential Research Topic">Potential
+                    Research Topic</a></li>
+        </ul>
+    </aside>
+
+    <!-- Appearance Panel -->
+    <aside class="appearance" id="appearance" aria-label="Appearance settings">
+        <div class="appearance-header">
+            <span class="appearance-title">Appearance</span>
+            <button type="button" class="appearance-toggle" id="appearance-toggle" aria-expanded="true">hide</button>
+        </div>
+        <div class="appearance-body">
+            <div class="appearance-group">
+                <span class="appearance-group-label">Text</span>
+                <label class="appearance-option">
+                    <input type="radio" name="text-size" value="small" />
+                    <span class="appearance-radio"></span>
+                    <span>Small</span>
+                </label>
+                <label class="appearance-option">
+                    <input type="radio" name="text-size" value="standard" checked />
+                    <span class="appearance-radio"></span>
+                    <span>Standard</span>
+                </label>
+                <label class="appearance-option">
+                    <input type="radio" name="text-size" value="large" />
+                    <span class="appearance-radio"></span>
+                    <span>Large</span>
+                </label>
+            </div>
+            <div class="appearance-group">
+                <span class="appearance-group-label">Colour</span>
+                <label class="appearance-option">
+                    <input type="radio" name="color-mode" value="auto" />
+                    <span class="appearance-radio"></span>
+                    <span>Automatic</span>
+                </label>
+                <label class="appearance-option">
+                    <input type="radio" name="color-mode" value="light" checked />
+                    <span class="appearance-radio"></span>
+                    <span>Light</span>
+                </label>
+                <label class="appearance-option">
+                    <input type="radio" name="color-mode" value="dark" />
+                    <span class="appearance-radio"></span>
+                    <span>Dark</span>
+                </label>
+            </div>
+        </div>
+    </aside>
+
+    <article class="article-container" id="top">
+
+        <a href="articles.html" class="back-link">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
+            </svg>
+            Back to Articles
+        </a>
+
+        <header class="article-header">
+            <span class="article-eyebrow">User Research · Qualitative Methods</span>
+            <h1 class="article-title">Ethnographic Study of Customer Behavior in a Late-Night Ice Cream Parlour</h1>
+            <p class="article-subtitle">I used a non-participatory observation approach, guided by ethnographic methods
+                described by Spradley
+                (1980), documenting behaviors in neutral, descriptive language without adding assumptions or
+                interpretations. I specifically applied observer-neutral language to ensure the descriptions remained
+                objective and unbiased.</p>
+            <div class="article-meta">
+                <span>By Bishal Saha</span>
+                <span>·</span>
+                <span>7 min read</span>
+                <span>·</span>
+                <span>Qualitative Research</span>
+            </div>
+        </header>
+
+        <div class="article-body">
+
+            <h2 id="Introduction">Introduction</h2>
+
+            <p>The behavior chosen for observation was how customers interacted inside the ice cream Parlour during
+                the late evening. This included how they spoke with staff, selected their orders, found seating, and
+                interacted with each other while eating. This focus was chosen because ice cream Parlours are common
+                social places where different kinds of everyday interactions can be seen.</p>
+
+
+            <h2 id="Methodology">Methodology</h2>
+
+            <p>The observation was planned for 10 PM on a Tuesday at Polar Bear Ice Cream Parlour in Niladri Nagar.
+                At this time, I expected to see families, couples, and groups of friends visiting for dessert after
+                dinner.
+                The focus was on how people placed their orders, interacted with staff, chose their seats, and behaved
+                while eating and talking. Notes were taken on my phone as rough bullet points. I took the role of a non-
+                participant observer, staying quiet and not engaging with anyone like a camera recording what is
+                happening. I spent 45 minutes inside the parlour.</p>
+
+            <h2 id="Findings">Findings</h2>
+
+            <p>The atmosphere appeared moderately busy but calm. The indoor temperature inside the parlour was
+                noticeably higher than the outdoor temperature. The parlour had a seating capacity of about 30-32 people
+                and 6 staff members were present. Approximately 14-16 customers were present, consisting of families,
+                children, couples, and small groups of friends. Customers were seated at tables or standing near the
+                counter while waiting for their orders. Background music played at a low volume. Staff members were
+                observed taking orders at the counter, preparing ice creams, and serving customers at tables. The
+                seating
+                area was partially filled, leaving some tables unoccupied.</p>
+
+            <p>The observations are structured into 5 parts: <strong>4 stories</strong> focusing on <strong>customer
+                    activities</strong> at individual
+                tables, and <strong>1 story</strong> highlighting <strong>general observations</strong> such as
+                furniture arrangement, non-living objects,
+                and other amenities within the store.</p>
+
+            <p>Upon arrival at the ice cream parlour, I chose a seat in the corner. The parlour was already quite
+                crowded
+                at the time.</p>
+
+            <h3 id="story-1">Story 1</h3>
+            <p>Immediately beside my seat, three friends were sitting together at the next table. Two of them
+                were seated on the sofa, while the third person sat on a chair placed opposite them. They appeared to be
+                waiting for their order, as no food items were on the table at first. After a short time, the staff
+                served them
+                their desserts. Although the exact names of the items were not clear, it could be seen that two of the
+                desserts were ice creams with chocolate syrup on top, and the third was a milkshake. The group spoke in
+                Kannada, and their voices were loud enough that parts of the conversation could be heard from where I
+                was seated. From what was audible, they were talking about events that had happened earlier in the day.
+                They continued this discussion while eating, with their attention moving between their food and the
+                conversation.</p>
+
+            <h3 id="story-2">Story 2</h3>
+            <p>Directly in front of my seat, there was a table with four chairs. At the time of my arrival, this
+                table was unoccupied. A little later, two young women, appearing to be in their twenties, entered the
+                parlour and chose this table. They occupied two seats, while the other two chairs remained empty
+                throughout their stay. Both women picked up the menu and spent several minutes looking through the
+                available options. They spoke briefly to each other while browsing. After some time, one of them got up
+                and went to the counter to place an order. Before confirming it, she turned to her companion and checked
+                the choice with her. Once it was confirmed, she placed the order with the staff and made the payment
+                through UPI. She then returned to her original seat. While waiting for their order, both women stayed
+                seated and used their mobile phones. They remained occupied with their screens until their order was
+                brought to the table. The order was served on a tray, which carried two bowls of ice cream along with a
+                printed QR code. Before eating, the woman who had placed the order took out her phone and clicked a
+                photograph of the ice cream. After this, one of the women picked up her spoon, took the first scoop of
+                the
+                ice cream, and then looked towards her companion with a visible smile.</p>
+
+            <h3 id="story-3">Story 3</h3>
+            <p>At another nearby table, a small setup with two chairs, there sat a child on one side and a man
+                on the other. The child was occupied with his bowl of ice cream, which contained two scoops. He used a
+                spoon that appeared larger than his hand and ate slowly, focused on moving the ice cream from the bowl
+                to his mouth while balancing the spoon. Across from him, the man—who also had an identical bowl of
+                ice cream—ate in silence. Both individuals displayed a lack of expression on their faces, with the boy
+                deeply engaged in his dessert and the man silent, maintaining a tired and neutral expression. The man
+                occasionally directed his gaze around the parlour but did not visibly interact with others or express
+                emotion.</p>
+
+            <h3 id="story-4">Story 4</h3>
+            <p>Later during the observation period, one person entered the parlour and proceeded directly to
+                the billing counter. This individual engaged with the cashier, spoke for a moment, and pointed to an ice
+                cream tub that was visible in the fridge. An employee then retrieved the indicated tub, packed it, and
+                handed it to the customer. Upon receiving the parcel, the person looked at the bill and walked toward
+                the
+                exit at a measured pace. Just outside the door, a woman waited for him. After leaving the shop, he
+                handed
+                the parcel to the woman.</p>
+
+            <h3 id="story-5">Story 5</h3>
+            <p>The physical setup of the store added further structure to the service. Two air conditioners were
+                installed but remained turned off during the observation. A single fridge with four compartments
+                displayed ice cream tubs of different flavors, and the counter itself was fronted with a large glass
+                case
+                showcasing a wide variety of flavors. Some customers were observed requesting small tastings of ice
+                cream before confirming their orders. The interior also featured decorative elements such as photo
+                frames
+                on the walls with images of ice creams, while the floor design resembled a chessboard, patterned with
+                alternating black and white squares. The arrangement of furniture supported both individual and group
+                seating, with sofas, chairs, and tables of varying sizes to accommodate different group types. Ice cream
+                was served on trays, often accompanied by printed QR codes.</p>
+
+            <h2 id="Discussion">Discussion</h2>
+            <ul>
+                <li>In several cases, ice cream was photographed before being eaten, suggesting that presentation
+                    played an important role in their experience.</li>
+
+                <li>Ordering was consistently done at the counter, with digital payment methods being the most
+                    common choice.</li>
+
+                <li>The walls of the parlour were painted in light colors, which gave the space a cozy and enclosed
+                    feeling. Soft, soothing background music played continuously, contributing to a calm atmosphere.
+                    A chocolaty aroma was noticeable throughout the parlour, likely from the desserts being prepared
+                    and served. Combined with the slightly warm indoor temperature, these elements created an
+                    environment that appeared conducive for customers to sit, converse, socialize, and relax.</li>
+
+                <li>The temperature inside the parlour was noticeably warmer than outside; the reason for this
+                    difference was unclear, whether it was intentional for enhancing the cold dessert experience, a
+                    way to encourage quicker consumption and turnover of customers to prevent overcrowding, or
+                    simply the effect of the refrigerators' compressors running continuously.</li>
+
+            </ul>
+
+            <h2 id="Potential Research Topic">Potential Research Topic</h2>
+
+            <blockquote class="pull-quote">
+                Not all customers are consumers. Can building a strong consumer base result in a solid customer base?
+            </blockquote>
+
+            <p><strong>Example:</strong><br>
+                For instance, preference for ice cream can vary depending on context: personally, ice cream priced above
+                60 INR is considered expensive, and more affordable options are preferred for self-consumption.
+                However, when the intention is to give ice cream as a gift, the selection criteria change, and
+                higher-priced
+                options may be considered. As a customer - one who buys but may not consume - the factors influencing
+                a decision to choose a more expensive ice cream could include elements such as presentation, quality,
+                packaging, brand value, or other attributes.
+            </p>
+
+            <section class="thank-you" aria-label="Thank you note">
+                <h2 class="thank-you-title">Thank you for reading</h2>
+                <p class="thank-you-text">If you made it this far, I appreciate your time and curiosity. This study
+                    was as much about watching people as it was about learning to watch well; and sharing it with
+                    readers like you is what makes the work feel worthwhile.</p>
+                <span class="thank-you-sign">- Bishal</span>
+            </section>
+
+    </article>
+
+    <script>
+        (function () {
+            const toc = document.getElementById('toc');
+            const toggle = document.getElementById('toc-toggle');
+            toggle.addEventListener('click', function () {
+                const collapsed = toc.classList.toggle('collapsed');
+                toggle.textContent = collapsed ? 'show' : 'hide';
+                toggle.setAttribute('aria-expanded', String(!collapsed));
+            });
+
+            document.querySelectorAll('.toc-sub-toggle').forEach(btn => {
+                btn.addEventListener('click', function () {
+                    const targetId = btn.getAttribute('aria-controls');
+                    const sublist = document.getElementById(targetId);
+                    if (!sublist) return;
+                    const expanded = btn.getAttribute('aria-expanded') === 'true';
+                    btn.setAttribute('aria-expanded', String(!expanded));
+                    sublist.hidden = expanded;
+                });
+            });
+
+            const links = Array.from(document.querySelectorAll('.toc-link'));
+            const sections = links
+                .map(l => ({ id: l.dataset.target, el: document.getElementById(l.dataset.target) }))
+                .filter(s => s.el);
+
+            function setActive() {
+                const scrollY = window.scrollY + 120;
+                let current = sections[0] && sections[0].id;
+                for (const s of sections) {
+                    if (s.el.offsetTop <= scrollY) current = s.id;
+                }
+                links.forEach(l => l.classList.toggle('active', l.dataset.target === current));
+            }
+
+            window.addEventListener('scroll', setActive, { passive: true });
+            setActive();
+        })();
+
+        (function () {
+            const panel = document.getElementById('appearance');
+            const toggle = document.getElementById('appearance-toggle');
+            toggle.addEventListener('click', function () {
+                const collapsed = panel.classList.toggle('collapsed');
+                toggle.textContent = collapsed ? 'show' : 'hide';
+                toggle.setAttribute('aria-expanded', String(!collapsed));
+            });
+
+            /* Text size */
+            const sizeKey = 'article-text-size';
+            const savedSize = localStorage.getItem(sizeKey) || 'standard';
+            applySize(savedSize);
+            const sizeRadio = document.querySelector(`input[name="text-size"][value="${savedSize}"]`);
+            if (sizeRadio) sizeRadio.checked = true;
+
+            document.querySelectorAll('input[name="text-size"]').forEach(r => {
+                r.addEventListener('change', e => {
+                    applySize(e.target.value);
+                    localStorage.setItem(sizeKey, e.target.value);
+                });
+            });
+
+            function applySize(val) {
+                document.body.classList.remove('text-small', 'text-large');
+                if (val === 'small') document.body.classList.add('text-small');
+                if (val === 'large') document.body.classList.add('text-large');
+            }
+
+            /* Color mode */
+            const colorKey = 'color-mode';
+            const mql = window.matchMedia('(prefers-color-scheme: dark)');
+            const savedColor = localStorage.getItem(colorKey)
+                || (localStorage.getItem('theme') === 'dark' ? 'dark' : 'light');
+            applyColor(savedColor);
+            const colorRadio = document.querySelector(`input[name="color-mode"][value="${savedColor}"]`);
+            if (colorRadio) colorRadio.checked = true;
+
+            document.querySelectorAll('input[name="color-mode"]').forEach(r => {
+                r.addEventListener('change', e => {
+                    applyColor(e.target.value);
+                    localStorage.setItem(colorKey, e.target.value);
+                    localStorage.setItem('theme', resolveColor(e.target.value));
+                });
+            });
+
+            mql.addEventListener('change', () => {
+                if (localStorage.getItem(colorKey) === 'auto') applyColor('auto');
+            });
+
+            function resolveColor(val) {
+                if (val === 'auto') return mql.matches ? 'dark' : 'light';
+                return val;
+            }
+
+            function applyColor(val) {
+                const effective = resolveColor(val);
+                document.documentElement.classList.toggle('dark-mode', effective === 'dark');
+            }
+        })();
+    </script>
+
+</body>
+
+</html>
