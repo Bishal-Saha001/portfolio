@@ -546,20 +546,36 @@
             }
         }
         
-        .back-link {
+         .back-link-bar {
             position: sticky;
             top: 0;
             z-index: 20;
-            display: flex;
+            background: var(--bg);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .back-link {
+            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            width: 100%;
             font-size: 0.9rem;
             color: var(--text-muted);
-            margin-bottom: 2.5rem;
-            padding: 1rem 0;
-            background: var(--bg);
-            transition: color 0.2s ease, gap 0.2s ease;
+            padding: 0.4rem 0.75rem;
+            border-radius: 6px;
+            transition: color 0.2s ease, gap 0.2s ease, background 0.2s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-orange);
+            gap: 0.75rem;
+        }
+
+        /* ═══════════ ARTICLE HEADER ═══════════ */
+        .article-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-soft);
         }
 
         .back-link:hover {
@@ -929,14 +945,16 @@
 
     <article class="article-container" id="top">
 
-        <a href="articles.html" class="back-link">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <line x1="19" y1="12" x2="5" y2="12" />
-                <polyline points="12 19 5 12 12 5" />
-            </svg>
-            Back to Articles
-        </a>
+        <div class="back-link-bar">
+            <a href="articles.html" class="back-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12" />
+                    <polyline points="12 19 5 12 12 5" />
+                </svg>
+                Back to Articles
+            </a>
+        </div>
 
         <header class="article-header">
             <span class="article-eyebrow">User Research · Qualitative Methods</span>
